@@ -1,26 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Home from './Components/Home'
-import Product from './Components/Product'
+import { Routes, Route } from "react-router-dom";
+import Home from "./Components/Home.jsx";
+import Product from "./Components/Product.jsx";
+import Cart from "./Components/Cart.jsx";
+import "./App.css";
+import Navbar from "./Components/Navbar.jsx";
+import { useState} from "react";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+// We’ll store products as an array of objects.
+
+  const products= [
+    {id:1 , name: "Laptop"},
+    {id:2 , name: "phone"},
+    {id:3 , name: "Headphones"},
+  ];
+
+
+const [cartItems , setCartItems] = useState([]);
 
   return (
-    <div>
+    <>
+    <Navbar/>
     <Routes>
-      <Route path = {"/"} element = {<Home/>}></Route>
+      <Route path="/" element={<Home />} />
+      <Route path="/product" element={<Product 
+            products= {products}
+            cartItems={cartItems}
+            setCartItems={setCartItems}/>} />
+      <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems= {setCartItems}/>} />
     </Routes>
-    <Routes>
-      <Route path = {"/cart"} element = {<Cart/>}></Route>
-    </Routes>
-    <Routes>
-      <Route path = {"/product"} element = {<Product/>}></Route>
-    </Routes>
-   </div>
-  )
+    </>
+  );
 }
 
-export default App
+export default App;
